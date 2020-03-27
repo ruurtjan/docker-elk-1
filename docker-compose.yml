@@ -1,6 +1,20 @@
 version: '3.2'
 
 services:
+
+  generator:
+    build:
+      context: generator/
+    restart: always
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 999
+    depends_on:
+      - logstash
+    networks:
+      - elk
+
   elasticsearch:
     build:
       context: elasticsearch/
